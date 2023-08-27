@@ -1,8 +1,7 @@
 package org.example;
-import  java.util.Comparator;
-
+import  java.time.LocalTime;
 public class Book {
-
+    long issued=-1;
     String Name;
     private int copies_available;
     private int total_copies;
@@ -32,5 +31,8 @@ public class Book {
     }
     public void setCopies_available(int copies_available) {
         this.copies_available = copies_available;
+    }
+    public void setIssueTime(long time){
+        this.issued=time;
     }
 }

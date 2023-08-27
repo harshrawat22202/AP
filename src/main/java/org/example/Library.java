@@ -4,6 +4,7 @@ import java.util.TreeSet;
 
 public class Library {
     Librarian librarian;
+    private  TreeSet<Member> MembersRecord;
     private TreeSet<Book> shelf;
     public  Library(String  Name){
         this.librarian=new Librarian (Name);
@@ -11,5 +12,6 @@ public class Library {
     }
     public Library(){//need to change
         this.librarian=new Librarian("ABC");
-    }
+    }//change
+
 }
