@@ -34,4 +34,10 @@ public class Book {
     public void setIssueTime(long time){
         this.issued=time;
     }
+
+    @Override
+    public String toString() {
+        String s=(this.issued!=-1)?"not issued":"issued";
+        return "Book name : "+this.Name+"\n"+"Author's name :"+this.Author+"\n"+s+"Available copies"+"\n"+this.copies_available+"\n"+"Total copies"+this.total_copies;
+    }
 }

@@ -92,11 +92,13 @@ public class Librarian {
     }
 
     public void seeBooks(TreeSet<Book> shelf){
-        System.out.println(shelf);
+        for (Book b:shelf)
+            System.out.println(b);
     }
 
     public void seeMember(TreeSet<Member> T){
-        System.out.println(T);
+        for (Member i:T)
+            System.out.println(i);
     }
 
     public void issueBook(TreeSet<Book> shelf,TreeSet<Member> M,String Ph){
