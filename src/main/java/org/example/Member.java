@@ -17,4 +17,19 @@ public class Member {
         return "Name : "+this.Name+"\n"+"Phone No : "+this.phonenumber+"\n"+"Books Issued : "+issued.toString()
                 +"\n"+"Age : "+this.age+"\n"+"dues : "+this.due;
     }
+
+    public void viewBooks(){
+        System.out.println("------");
+        System.out.println("issued books : ");
+        for (Book k:this.issued)
+            System.out.println(k);
+        System.out.println("------");
+    }
+    public void payFine(int money,Librarian l){
+        l.collectFine(this,money);
+    }
+
+    public void returnBook(Library Lib,Librarian L,String BookID){
+        L.collectBook(this,Lib.getShelf(),BookID);
+    }
 }

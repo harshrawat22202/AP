@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -16,7 +17,6 @@ public class Librarian {
         this.Name=Name;
         this.ID=ID;
     }
-
     public void addBooks(TreeSet<Book> shelf,Book ...book){
         shelf.addAll(Arrays.asList(book));
     }
@@ -97,6 +97,7 @@ public class Librarian {
     }
 
     public void seeMember(TreeSet<Member> T){
+        calculateFineOfEachMember(T);
         for (Member i:T)
             System.out.println(i);
     }
@@ -108,6 +109,7 @@ public class Librarian {
             return;
         }
         Member m=findMember(M,Ph);
+        calculateIndividualMembersFine(M,m.phonenumber);
         if (m.due!=0){
             System.out.println("Pay dues first !");
             return ;
@@ -118,8 +120,88 @@ public class Librarian {
         System.out.println(shelf);
         String bookID=sc.next();
         Book b=findBook(shelf,bookID);
-        b.setTotal_copies(b.getCopies_available()-1);
-        b.setIssueTime(System.currentTimeMillis());
-        m.issued.add(b);
+        if (b.getCopies_available()>0 && !m.issued.contains(b)){
+            b.setTotal_copies(b.getCopies_available()-1);
+            b.setIssueTime(System.currentTimeMillis());
+            m.issued.add(b);
+        }else if (m.issued.contains(b)){
+            System.out.println("you already have one copy");
+        }else{
+            System.out.println("Not available now");
+        }
+    }
+
+    public void addMember(TreeSet<Member> MembersRecord){
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("enter name phone no. and age");
+            this.addMember(MembersRecord,new Member(sc.next(), sc.next(), sc.nextInt()));
+        } catch (IllegalStateException e) {
+            System.out.println("error");
+        } catch (NoSuchElementException e) {
+            System.out.println("invalid input");
+        }
+    }
+    public void addBook(TreeSet<Book> shelf){
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("enter name author and copies");
+            Book b=new Book(sc.next(), sc.next(), sc.nextInt());
+            if (this.findBook(shelf,b.BookID).Author.compareTo(b.Author)!=0 ||
+                    this.findBook(shelf,b.BookID).Name.compareTo(b.Name)!=0)
+                this.addBooks(shelf,b);
+            else{
+                int x=this.findBook(shelf,b.BookID).getTotal_copies();
+                int y=this.findBook(shelf,b.BookID).getCopies_available();
+                this.findBook(shelf,b.BookID).setTotal_copies(x+b.getTotal_copies());
+                this.findBook(shelf,b.BookID).setCopies_available(y+b.getTotal_copies());
+            }
+        } catch (IllegalStateException e) {
+            System.out.println("error");
+        } catch (NoSuchElementException e) {
+            System.out.println("invalid input");
+        }
+    }
+
+    public void calculateIndividualMembersFine(TreeSet<Member> MemberRecord,String MemberID){
+        Member m=findMember(MemberRecord,MemberID);
+        if (!m.issued.isEmpty()){
+            for (Book b: m.issued){
+                long time=(b.issued-System.currentTimeMillis())/1000;
+                if (time>10){
+                    m.due=Integer.parseInt(String.valueOf(time*3));
+                }
+            }
+        }
+    }
+    public void calculateFineOfEachMember(TreeSet<Member> MemberList){
+        for (Member m:MemberList){
+            if (!m.issued.isEmpty()){
+                for (Book b: m.issued){
+                    long time=b.issued-System.currentTimeMillis()/1000;
+                    if (time>10){
+                        m.due=Integer.parseInt(String.valueOf(time*3));
+                    }
+                }
+            }
+        }
+    }
+
+    public void collectFine(Member M,int money){
+        if (money<=0){
+            System.out.println("error");
+        }else if(money>M.due){
+            System.out.println("money cannot be more than dues !");
+        }else{
+            M.due=M.due-money;
+            System.out.println("paid successfully");
+        }
+    }
+
+    public void collectBook(Member M,TreeSet<Book> shelf,String BookID){
+        if (!M.issued.contains(this.findBook(shelf,BookID))){
+            System.out.println("error specified book was not issued to you");
+        }else{
+            M.issued.remove(findBook(shelf,BookID));
+            findBook(shelf,BookID).setCopies_available(findBook(shelf,BookID).getCopies_available()+1);
+        }
     }
 }

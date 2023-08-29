@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.TreeSet;
 
 public class Library {
@@ -14,4 +16,11 @@ public class Library {
         this.librarian=new Librarian("ABC");
     }//change
 
+    public TreeSet<Book> getShelf(){
+        return this.shelf;
+    }
+
+    public void enterAsMember(){}
+
+    public void enterAsLibrarian(){}
 }
