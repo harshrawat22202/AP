@@ -30,6 +30,5 @@ public class Member {
     }
 
     public void returnBook(Library Lib,Librarian L,String BookID){
-        L.collectBook(this,Lib.getShelf(),BookID);
     }
 }

@@ -1,6 +1,6 @@
 package org.example;
 public class Book {
-    long issued=-1;
+    long issued=-1;//need to change it can give wrong result get it to member along with book
     String Name;
     private int copies_available;
     private int total_copies;
