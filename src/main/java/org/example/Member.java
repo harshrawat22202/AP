@@ -25,10 +25,6 @@ public class Member {
         System.out.println(issued[1]);
         System.out.println("------");
     }
-    public void payFine(int money,Librarian l){
-        l.collectFine(this,money);
-    }
-
     public void returnBook(Library Lib,Librarian L,String BookID){
     }
 }

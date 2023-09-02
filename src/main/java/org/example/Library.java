@@ -44,39 +44,40 @@ public class Library {
         Scanner sc=new Scanner(System.in);
         int c=0;
         do{//change it(remember to do so)
-            System.out.println("----------------------------");
-            System.out.print("To : addBook = 1"+"\n"
-                    +"To : addMember = 2"+"\n"
-                    +"To : calculate fine of each Member = 3"+"\n"
-                    +"To : calculate individual members fine = 4"+"\n"
-                    +"To : List books = 5"+"\n"
-                    +"To : List Members = 6"+"\n");
-            System.out.println("----------------------------");
             System.out.println("wish to continue ? press 1");
             c=sc.nextInt();
             sc.nextLine();
             if (c!=1){
                 break;
             }
+            System.out.println("----------------------------");
+            System.out.print("To : View profile = 1"+"\n"
+                    +"To : View issued books = 2"+"\n"
+                    +"To : Return Book = 3"+"\n"
+                    +"To : Issue book = 4"+"\n"
+                    +"To : Return Book = 5"+"\n"
+                    +"To : Pay Fine = 6"+"\n"
+                    +"To : Show available books = 7"+"\n");
+            System.out.println("----------------------------");
             System.out.println("enter choice");
             int c1=sc.nextInt();
             if (c1==1){
                 System.out.println(M);
-            }
-            else if (c1==2){
+            }else if (c1==2){
                 M.viewBooks();
-            }
-            else if (c1==3){
-                int money=sc.nextInt();
-                sc.nextLine();
-                M.payFine(money,librarian);
-            }
-            else if (c1==4){
+            }else if (c1==3){
+                System.out.println("Enter BookID");
                 String ID=sc.nextLine();
                 M.returnBook(this,this.librarian,ID);
+            }else if (c1==4){
+                librarian.issueBook(shelf,M);
+            }else if (c1==5){
+                librarian.collectBook(M,shelf);
+            }else if (c1==6){
+                librarian.collectFine(M);
+            }else if (c1==7){
+                librarian.showAvailableBooks(shelf);
             }
-            else if (c1==5){}
-            else if (c1==6){}
             else{
                 System.out.println("invalid number");
             }
@@ -86,6 +87,12 @@ public class Library {
         Scanner sc=new Scanner(System.in);
         int c=0;
         do {
+            System.out.println("wish to continue ? press 1");
+            c=sc.nextInt();
+            sc.nextLine();
+            if (c!=1){
+                break;
+            }
             System.out.println("----------------------------");
             System.out.print("To : addBook = 1"+"\n"
                     +"To : addMember = 2"+"\n"
@@ -94,13 +101,6 @@ public class Library {
                     +"To : List books = 5"+"\n"
                     +"To : List Members = 6"+"\n");
             System.out.println("----------------------------");
-            System.out.println("wish to continue ? press 1");
-            c=sc.nextInt();
-            sc.nextLine();
-            if (c!=1){
-                break;
-            }
-            System.out.println(c);
             System.out.println("enter choice");
             int c1=sc.nextInt();
             sc.nextLine();
@@ -112,7 +112,8 @@ public class Library {
                 librarian.calculateFineOfEachMember(MembersRecord);
             else if (c1==4) {
                 System.out.println("enter ID of member");
-                librarian.calculateIndividualMembersFine(MembersRecord, sc.next());
+                String ID= sc.nextLine();
+                librarian.calculateIndividualMembersFine(MembersRecord,ID);
             }else if (c1==5){
                 librarian.seeBooks(shelf);
             }else if (c1==6){
