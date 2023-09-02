@@ -10,21 +10,6 @@ public class Librarian {
         this.ID=Integer.toString(hashCode());
     }
 
-    public Librarian(String Name,String ID){
-        this.Name=Name;
-        this.ID=ID;
-    }
-
-    public Book findBook(HashMap<String,Book> shelf,Book book){
-        return shelf.get(book.BookID);
-    }
-
-    public void addMember(HashMap<String,Member> MembersRecord,Member m){
-        if (!MembersRecord.containsKey(m.phonenumber))
-            MembersRecord.put(m.phonenumber,m);
-        else System.out.println("member with same phone number already exists");
-    }
-
     public boolean isMember(HashMap<String,Member> t,String Ph){
         return t.containsKey(Ph);
     }
@@ -46,6 +31,11 @@ public class Librarian {
     }
     public void deleteBook(HashMap<String,Book> shelf,String BookID){
         if (shelf.containsKey(BookID)){
+            Book b=shelf.get(BookID);
+            if (b.issued){
+                System.out.println("Get book back from member first");
+                return ;
+            }
             shelf.remove(BookID);
             System.out.println("successfully removed");
         }else{
@@ -54,7 +44,17 @@ public class Librarian {
     }
 
     public void deleteMember(HashMap<String,Member> t,String Ph){
+        Scanner sc=new Scanner(System.in);
         if (t.containsKey(Ph)){
+            Member m=t.get(Ph);
+            if (m.issued[0]!=null || m.issued[1]!=null){
+                System.out.println("con not remove member collect books first");
+                return;
+            }
+            if (m.due>0){
+                System.out.println("cannot remove member collect dues first");
+                return ;
+            }
             t.remove(Ph);
             System.out.println("deleted successfully");
         }else{

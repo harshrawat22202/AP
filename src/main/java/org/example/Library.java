@@ -110,7 +110,9 @@ public class Library {
                     +"To : calculate fine of each Member = 3"+"\n"
                     +"To : calculate individual members fine = 4"+"\n"
                     +"To : List books = 5"+"\n"
-                    +"To : List Members = 6"+"\n");
+                    +"To : List Members = 6"+"\n"
+                    +"To : Delete Book = 7"+"\n"
+                    +"To : Remove Member = 8"+"\n");
             System.out.println("----------------------------");
             System.out.println("enter choice");
             int c1=sc.nextInt();
@@ -130,6 +132,14 @@ public class Library {
             }else if (c1==6){
                 librarian.calculateFineOfEachMember(MembersRecord);
                 librarian.seeMember(MembersRecord);
+            }else if (c1==7){
+                System.out.println("Enter BookID");
+                String ID=sc.nextLine();
+                librarian.deleteBook(shelf,ID);
+            }else if (c1==8){
+                System.out.println("Enter MemberID");
+                String ID=sc.nextLine();
+                librarian.deleteMember(MembersRecord,ID);
             }else{
                 System.out.println("invalid number");
             }
