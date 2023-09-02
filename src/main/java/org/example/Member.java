@@ -1,8 +1,7 @@
 package org.example;
-import java.util.ArrayList;
 public class Member {
-    int due=0;
-    ArrayList <Book> issued=new ArrayList<>();
+    long due=0;
+    pair[] issued={null,null};
     String phonenumber;
     String Name;
     int age;
@@ -14,15 +13,16 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Name : "+this.Name+"\n"+"Phone No : "+this.phonenumber+"\n"+"Books Issued : "+issued.toString()
+        return "Name : "+this.Name+"\n"+"Phone No : "+this.phonenumber+"\n"
+                +"Books Issued : "+issued[0]+"\n"+issued[1]
                 +"\n"+"Age : "+this.age+"\n"+"dues : "+this.due;
     }
 
     public void viewBooks(){
         System.out.println("------");
         System.out.println("issued books : ");
-        for (Book k:this.issued)
-            System.out.println(k);
+        System.out.println(issued[0]);
+        System.out.println(issued[1]);
         System.out.println("------");
     }
     public void payFine(int money,Librarian l){

@@ -1,6 +1,5 @@
 package org.example;
 public class Book {
-    long issued=-1;//need to change it can give wrong result get it to member along with book
     String Name;
     private int copies_available;
     private int total_copies;
@@ -13,7 +12,6 @@ public class Book {
         this.BookID=Integer.toString(this.hashCode());
     }
 
-//    public static Book deleteBook(String BookID){}
     public int getCopies_available(){
         return this.copies_available;
     }
@@ -22,6 +20,7 @@ public class Book {
         return this.Author;
     }
 
+    public String getName(){ return this.Name; }
     public int getTotal_copies() {
         return this.total_copies;
     }
@@ -31,17 +30,11 @@ public class Book {
     public void setCopies_available(int copies_available) {
         this.copies_available = copies_available;
     }
-    public void setIssueTime(long time){
-        this.issued=time;
-    }
-
     @Override
     public String toString() {
-        String s=(this.issued!=-1)?"not issued":"issued";
         return "Book name : "+this.Name+"\n"
-                +"Author's name :"+this.Author+"\n"
-                +s+"Available copies"+"\n"
-                +this.copies_available+"\n"
-                +"Total copies"+this.total_copies;
+                +"Author's name : "+this.Author+"\n"
+                +"Available copies : " +this.copies_available+
+                "\n"+"Total copies : "+this.total_copies;
     }
 }

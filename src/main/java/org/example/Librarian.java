@@ -14,9 +14,6 @@ public class Librarian {
         this.Name=Name;
         this.ID=ID;
     }
-    public void addBooks(HashMap<String,Book> shelf,Book book){
-        shelf.put(book.BookID,book);
-    }
 
     public Book findBook(HashMap<String,Book> shelf,Book book){
         return shelf.get(book.BookID);
@@ -39,6 +36,14 @@ public class Librarian {
         return shelf.get(ID);
     }
 
+    public Book findBook(HashMap<String,Book> shelf,String Name,String Author){
+        for (String ID: shelf.keySet()){
+            if (shelf.get(ID).getName().compareTo(Name)==0 && shelf.get(ID).getAuthor().compareTo(Author)==0){
+                return shelf.get(ID);
+            }
+        }
+        return null;
+    }
     public void deleteBook(HashMap<String,Book> shelf,String BookID){
         if (shelf.containsKey(BookID)){
             shelf.remove(BookID);
@@ -101,48 +106,92 @@ public class Librarian {
     }
 
     public void seeMember(HashMap<String,Member> T) {
-        //calculateFineOfEachMember(T);//change this function gives invalid result
+        calculateFineOfEachMember(T);
         for (String i : T.keySet())
             System.out.println(T.get(i));
     }
-    public void issueBook(TreeSet<Book> shelf,TreeSet<Member> M,String Ph){
+    public void issueBook(HashMap<String,Book> shelf,HashMap<String,Member> MemberRecord,String Ph){
+        Member m=MemberRecord.get(Ph);
+        if (m==null){
+            System.out.println("member doesn't exist");
+            return ;
+        }
+        Scanner sc=new Scanner(System.in);
+        System.out.println("enter BookID");
+        Book b=shelf.get(sc.next());
+        if (b==null){
+            System.out.println("book doesn't exist");
+            return ;
+        }//add code to check due and number of book issued
     }
 
     public void addMember(HashMap<String,Member> MembersRecord){
-        try (Scanner sc = new Scanner(System.in)) {
-            System.out.println("enter name phone no. and age");
-            this.addMember(MembersRecord,new Member(sc.next(), sc.next(), sc.nextInt()));
-        } catch (IllegalStateException e) {
-            System.out.println("error");
-        } catch (NoSuchElementException e) {
-            System.out.println("invalid input");
+        Scanner sc=new Scanner(System.in);
+        System.out.println("enter name , phone number & age");
+        String name=sc.nextLine();
+        String ph= sc.nextLine();
+        if (MembersRecord.containsKey(ph)){
+            System.out.println("Member already exists");
+            return ;
         }
+        int age=sc.nextInt();
+        sc.nextLine();
+        Member m=new Member(name,ph,age);
+        MembersRecord.put(ph,m);
     }
     public void addBook(HashMap<String,Book> shelf){
-        try (Scanner sc = new Scanner(System.in)) {
-            System.out.println("enter name author and copies");
-            Book b=new Book(sc.next(), sc.next(), sc.nextInt());
-            if (this.findBook(shelf,b.BookID).Author.compareTo(b.Author)!=0 ||
-                    this.findBook(shelf,b.BookID).Name.compareTo(b.Name)!=0)
-                this.addBooks(shelf,b);
-            else{
-                System.out.println("this book already exists so adding quantity of the existing books");
-                int x=this.findBook(shelf,b.BookID).getTotal_copies();
-                int y=this.findBook(shelf,b.BookID).getCopies_available();
-                this.findBook(shelf,b.BookID).setTotal_copies(x+b.getTotal_copies());
-                this.findBook(shelf,b.BookID).setCopies_available(y+b.getTotal_copies());
-            }
-        } catch (IllegalStateException e) {
-            System.out.println("error");
-        } catch (NoSuchElementException e) {
-            System.out.println("invalid input");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("enter name author and copies");
+        String name_of_book = sc.nextLine();
+        String name_of_author = sc.nextLine();
+        int qty = sc.nextInt();
+        sc.nextLine();
+        boolean found=false;
+        Book b=new Book(name_of_book,name_of_author, qty);
+        for (String ID: shelf.keySet()){
+            if (shelf.get(ID).getAuthor().compareTo(name_of_author)==0
+                    && shelf.get(ID).getName().compareTo(name_of_book)==0)
+                found=!found;
+        }
+        if (!found) {
+            shelf.put(b.BookID, b);
+        }
+        else{
+            System.out.println("this book already exists so adding quantity of the existing books");
+            int x=this.findBook(shelf,b.getName(),b.getAuthor()).getTotal_copies();
+            int y=this.findBook(shelf,b.getName(),b.getAuthor()).getCopies_available();
+            this.findBook(shelf,b.getName(),b.getAuthor()).setTotal_copies(x+b.getTotal_copies());
+            this.findBook(shelf,b.getName(),b.getAuthor()).setCopies_available(y+b.getTotal_copies());
         }
     }
 
-    public void calculateIndividualMembersFine(TreeSet<Member> MemberRecord,String MemberID){
+    public void calculateIndividualMembersFine(HashMap<String,Member> MemberRecord,String MemberID){
+        if (!MemberRecord.containsKey(MemberID)){
+            System.out.println("invalid id");
+        }else{
+            long time0=0;
+            long time1=0;
+            Member m=MemberRecord.get(MemberID);
+            if (m.issued[0]!=null)
+                time0=m.issued[0].time;
+            if (m.issued[1]!=null)
+                time1=m.issued[1].time;
+            if (time0>0){
+                if (System.currentTimeMillis()-time0>10000){
+                    m.due=+3*(System.currentTimeMillis()-time0)/1000;
+                }
+            }
+            if (time1>0){
+                if (System.currentTimeMillis()-time1>10000){
+                    m.due=+3*(System.currentTimeMillis()-time1)/1000;
+                }
+            }
+        }
     }
-    public void calculateFineOfEachMember(TreeSet<Member> MemberList){
-
+    public void calculateFineOfEachMember(HashMap<String,Member> MemberRecord){
+        for (String ID:MemberRecord.keySet()){
+            calculateIndividualMembersFine(MemberRecord,ID);
+        }
     }
 
     public void collectFine(Member M,int money){
