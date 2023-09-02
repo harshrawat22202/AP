@@ -72,6 +72,10 @@ public class Librarian {
             System.out.println(T.get(i));
     }
     public void issueBook(HashMap<String,Book> shelf,Member m){
+        if (m.due>0){
+            System.out.println("Pay dues first !");
+            return ;
+        }
         Scanner sc=new Scanner(System.in);
         System.out.println("enter BookID");
         Book b=shelf.get(sc.nextLine());
