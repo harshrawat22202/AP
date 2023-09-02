@@ -111,8 +111,13 @@ public class Librarian {
         System.out.println("enter name author and copies");
         String name_of_book = sc.nextLine();
         String name_of_author = sc.nextLine();
-        Book b=new Book(name_of_book,name_of_author);
-        shelf.put(b.BookID,b);
+        int qty= sc.nextInt();
+        sc.nextLine();
+        while(qty>0){
+            Book b=new Book(name_of_book,name_of_author);
+            shelf.put(b.BookID,b);
+            qty--;
+        }
         System.out.println("Book added");
     }
 
