@@ -14,7 +14,7 @@ public class Member {
     @Override
     public String toString() {
         return "Name : "+this.Name+"\n"+"Phone No : "+this.phonenumber+"\n"
-                +"Books Issued : "+issued[0]+"\n"+issued[1]
+                +"Books Issued : \n"+issued[0]+"\n"+issued[1]
                 +"\n"+"Age : "+this.age+"\n"+"dues : "+this.due;
     }
 
