@@ -21,6 +21,7 @@ public class Book {
     public String toString() {
         return "BookID : "+this.BookID+"\n"
                 +"Book name : "+this.Name+"\n"
-                +"Author's name : "+this.Author+"\n";
+                +"Author's name : "+this.Author+"\n"
+                +"Issued : " + issued;
     }
 }

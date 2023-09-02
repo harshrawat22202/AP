@@ -21,6 +21,8 @@ public class Main {
                 Lib.enterAsLibrarian();
             else if (choice==1)
                 Lib.enterAsMember(Lib.loginMember());
+            else if (choice==3)
+                break;
             else
                 System.out.println("invalid choice re-enter");
         }

@@ -44,7 +44,7 @@ public class Library {
         Scanner sc=new Scanner(System.in);
         int c=0;
         do{
-            System.out.println("wish to continue ? press 1");
+            System.out.println("wish to continue as Member ? press 1");
             c=sc.nextInt();
             sc.nextLine();
             if (c!=1){
@@ -98,7 +98,7 @@ public class Library {
         Scanner sc=new Scanner(System.in);
         int c=0;
         do {
-            System.out.println("wish to continue ? press 1");
+            System.out.println("wish to continue as Librarian ? press 1");
             c=sc.nextInt();
             sc.nextLine();
             if (c!=1){
