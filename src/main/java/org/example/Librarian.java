@@ -112,6 +112,10 @@ public class Librarian {
         String name_of_book = sc.nextLine();
         String name_of_author = sc.nextLine();
         int qty= sc.nextInt();
+        if (qty==0){
+            System.out.println("invalid");
+            return ;
+        }
         sc.nextLine();
         while(qty>0){
             Book b=new Book(name_of_book,name_of_author);
@@ -181,7 +185,8 @@ public class Librarian {
                 index=0;
                 has=true;
             }
-        } else if (M.issued[1]!=null) {
+        }
+        if (M.issued[1]!=null) {
             if (M.issued[1].book.BookID.compareTo(b.BookID)==0){
                 index=1;
                 has=true;

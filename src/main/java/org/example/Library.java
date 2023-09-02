@@ -12,12 +12,11 @@ public class Library {
         this.shelf=new HashMap<>();
         this.MembersRecord=new HashMap<>();
     }
-    public Library(){//need to change
+    public Library(){
         this.shelf=new HashMap<>();
         this.MembersRecord=new HashMap<>();
         this.librarian=new Librarian("ABC");
-    }//change
-
+    }
     public HashMap<String,Book> getShelf(){
         return this.shelf;
     }
@@ -57,11 +56,13 @@ public class Library {
                     +"To : Issue book = 3"+"\n"
                     +"To : Return Book = 4"+"\n"
                     +"To : Pay Fine = 5"+"\n"
-                    +"To : Show available books = 6"+"\n");
+                    +"To : Show available books = 6"+"\n"
+                    +"To : See all books = 7"+"\n");
             System.out.println("----------------------------");
             System.out.println("enter choice");
             int c1=sc.nextInt();
             if (c1==1){
+                librarian.calculateIndividualMembersFine(MembersRecord,M.phonenumber);
                 System.out.println(M);
             }else if (c1==2){
                 M.viewBooks();
@@ -70,10 +71,11 @@ public class Library {
                 System.out.println("----------------");
                 librarian.showAvailableBooks(shelf);
                 System.out.println("----------------");
+                librarian.calculateIndividualMembersFine(MembersRecord,M.phonenumber);
                 librarian.issueBook(shelf,M);
             }else if (c1==4){
                 librarian.collectBook(M,shelf);
-                System.out.println("Now here is list of books not returned yet by you");
+                System.out.println("Now here is list of books not returned by you");
                 System.out.println("---------");
                 M.viewBooks();
                 System.out.println("---------");
@@ -83,8 +85,11 @@ public class Library {
                 System.out.println("------------------");
                 librarian.showAvailableBooks(shelf);
                 System.out.println("------------------");
-            }
-            else{
+            }else if (c1==7){
+                System.out.println("-------");
+                librarian.seeBooks(shelf);
+                System.out.println("-------");
+            }else{
                 System.out.println("invalid number");
             }
         }while(c==1);
@@ -123,6 +128,7 @@ public class Library {
             }else if (c1==5){
                 librarian.seeBooks(shelf);
             }else if (c1==6){
+                librarian.calculateFineOfEachMember(MembersRecord);
                 librarian.seeMember(MembersRecord);
             }else{
                 System.out.println("invalid number");

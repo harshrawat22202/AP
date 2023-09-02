@@ -14,7 +14,7 @@ public class Main {
             if (c!=1)
                 break;
             int choice;
-            System.out.println("enter choice");
+            System.out.print("------"+"\n"+"To : enter as Member = 1"+"\n"+"To : enter as librarian = 2"+"\n"+"To : exit = 3"+"\n"+"------"+"\n");
             choice=sc.nextInt();
             sc.nextLine();
             if (choice==2)
