@@ -15,7 +15,7 @@ To : exit = 3
 ------
 ```
 To perform any operation first we have to add 
-members and books
+members and books **after entering as librarian** .
 ```
 ----------------------------
 To : addBook = 1
