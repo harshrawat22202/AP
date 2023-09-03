@@ -1,4 +1,15 @@
 # AP Assignment-1(Used 2 accounts my personal github account and one made with college mail ID)
+## About code
+This code uses HashMap<String,Book> and HashMap<String,Member> to store Books and Member respectively.
+Book , Library , Librarian and Member class is made in this code.
+## Library 
+Library is used to call methods in librarian and meber class and store data about books and members.
+Each Library can only have one member.
+## Librairan
+Libraian is used to add books,members,delete books,delete members for calculation of fine , issue book, colleact books , collect fine and to show available books.
+Therefore this is the most important class in this code .
+## Member
+Member class's methods are generally used to call methods inside librairan.
 ## Use as Librarian
 When Main.java is run
 first user is asked to do this if 1 is not pressed
@@ -28,8 +39,8 @@ To : Delete Book = 7
 To : Remove Member = 8
 ----------------------------
 ```
-**whenever fine is calculated there is a rounding error in calculation as System.currenttimemillis() returns long data time
-and when we calculate fine ((curent_time-issue_time)/1000)*3 it returns a long data type and not float type**
+Note = whenever fine is calculated there is a rounding error in calculation as System.currenttimemillis() returns long data time
+and when we calculate fine ((curent_time-issue_time)/1000)*3 it returns a long data type and not float type
 We can add books or members first
 if we add book we have to write name of book , name of author and number of copies 
 **specifically in this order line by line** .
