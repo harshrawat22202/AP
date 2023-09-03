@@ -28,6 +28,8 @@ To : Delete Book = 7
 To : Remove Member = 8
 ----------------------------
 ```
+**whenever fine is calculated there is a rounding error in calculation as System.currenttimemillis() returns long data time
+and when we calculate fine ((curent_time-issue_time)/1000)*3 it returns a long data type and not float type**
 We can add books or members first
 if we add book we have to write name of book , name of author and number of copies 
 **specifically in this order line by line** .
