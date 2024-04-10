@@ -1,4 +1,4 @@
-# AP Assignment-1(Used 2 accounts my personal github account and one made with college mail ID)
+# AP Assignment-1
 ## About code
 This code uses HashMap<String,Book> and HashMap<String,Member> to store Books and Member respectively.
 Book , Library , Librarian and Member class is made in this code.
